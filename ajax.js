@@ -1,20 +1,34 @@
-if (window.XMLHttpRequest) {
-    request = new XMLHttpRequest()
-} else {
-    request = new ActiveXObject('Microsoft.XMLHTTP')
-}
+$(document).ready(function (e) {
+ $("#show").click(function (e){
 
-request.open('GET', 'https://api.noaeincloud.ir/api/sample')
-request.onreadystatechange = function () {
-    if (request.readyState === 4 && request.status === 200) {
-        var items = JSON.parse(request.responseText)
-        console.log(items.message);
-    }
-
-else {
-        console.log('err')
-    }
-}
+var name = $("#name").val();
+var pass = $("#pass").val();
 
 
-request.send()
+$.ajax({
+    url: 'https://api.noaeincloud.ir/api/sample',
+    data:{"name": name, "pass": pass},
+    type: 'GET',
+    dataType: 'JSON',
+    beforeSend: function() {
+  
+    },
+    success: function(xhr, response) {
+        
+        swal({
+            title: "it is registered !",
+            text: "You clicked the button!",
+            icon: "success",
+            button: "Aww yiss!",
+          });
+    },
+    error: function(xhr, status, error) {
+        console.log(xhr.message)
+        swal ( "Oops" ,  "Something went wrong!" ,  "error" )
+    },
+ 
+  });
+
+});
+
+});
